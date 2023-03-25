@@ -43,6 +43,7 @@ playButtonEl.addEventListener('click', function startPlayer() {
         // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
         sourceNode = audioContext.createBufferSource();
         sourceNode.buffer = audioBuffer;
+        sourceNode.loop = true; // Set the loop property to true
         sourceNode.connect(filterNode);
         filterNode.connect(audioContext.destination);
         sourceNode.start(0);
@@ -54,6 +55,7 @@ stopButtonEl.addEventListener('click', function stopPlayer() {
         sourceNode.stop();
     }
 });
+
 
 
 
