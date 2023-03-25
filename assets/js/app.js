@@ -36,6 +36,8 @@ const playButtonEl500 = document.getElementById("playButn500hz");
 const stopButtonEl500 = document.getElementById("stopButn500hz");
 const playButtonEl256 = document.getElementById("playButn256hz");
 const stopButtonEl256 = document.getElementById("stopButn256hz");
+const playButtonEl130 = document.getElementById("playButn130Hz");
+const stopButtonEl130 = document.getElementById("stopButn130Hz");
 //eventlistener for the play button att 100hz
 playButtonEl1000.addEventListener('click', function startPlayer() {
     if (sourceNode) {
@@ -104,6 +106,29 @@ playButtonEl256.addEventListener('click', function startPlayer() {
 });
 
 stopButtonEl256.addEventListener('click', function stopPlayer() {
+    if (sourceNode) {
+        sourceNode.stop();
+    }
+});
+playButtonEl130.addEventListener('click', function startPlayer() {
+    if (sourceNode) {
+        // Stop the current audio if it's playing
+        if (sourceNode.state === "playing") {
+            sourceNode.stop();
+        }
+
+        // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
+        sourceNode = audioContext.createBufferSource();
+        sourceNode.buffer = audioBuffer;
+        sourceNode.loop = true; // Set the loop property to true
+        sourceNode.connect(filterNode);
+        filterNode.frequency.value = 130;
+        filterNode.connect(audioContext.destination);
+        sourceNode.start(0);
+    }
+});
+
+stopButtonEl130.addEventListener('click', function stopPlayer() {
     if (sourceNode) {
         sourceNode.stop();
     }
