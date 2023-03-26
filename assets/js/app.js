@@ -39,7 +39,7 @@ const stopButtonEl256 = document.getElementById("stopButn256hz");
 const playButtonEl130 = document.getElementById("playButn130Hz");
 const stopButtonEl130 = document.getElementById("stopButn130Hz");
 //eventlistener for the play button att 100hz
-playButtonEl1000.addEventListener('click', function startPlayer() {
+playButtonEl1000.addEventListener('click', function startPlayer1000() {
     if (sourceNode) {
         // Stop the current audio if it's playing
         if (sourceNode.state === "playing") {
@@ -57,13 +57,13 @@ playButtonEl1000.addEventListener('click', function startPlayer() {
     }
 });
 
-stopButtonEl1000.addEventListener('click', function stopPlayer() {
+stopButtonEl1000.addEventListener('click', function stopPlayer1000() {
     if (sourceNode) {
         sourceNode.stop();
     }
 });
 
-playButtonEl500.addEventListener('click', function startPlayer() {
+playButtonEl500.addEventListener('click', function startPlayer500() {
     if (sourceNode) {
         // Stop the current audio if it's playing
         if (sourceNode.state === "playing") {
@@ -81,13 +81,13 @@ playButtonEl500.addEventListener('click', function startPlayer() {
     }
 });
 
-stopButtonEl500.addEventListener('click', function stopPlayer() {
+stopButtonEl500.addEventListener('click', function stopPlayer500() {
     if (sourceNode) {
         sourceNode.stop();
     }
 });
 
-playButtonEl256.addEventListener('click', function startPlayer() {
+playButtonEl256.addEventListener('click', function startPlayer256() {
     if (sourceNode) {
         // Stop the current audio if it's playing
         if (sourceNode.state === "playing") {
@@ -105,12 +105,12 @@ playButtonEl256.addEventListener('click', function startPlayer() {
     }
 });
 
-stopButtonEl256.addEventListener('click', function stopPlayer() {
+stopButtonEl256.addEventListener('click', function stopPlayer256() {
     if (sourceNode) {
         sourceNode.stop();
     }
 });
-playButtonEl130.addEventListener('click', function startPlayer() {
+playButtonEl130.addEventListener('click', function startPlayer130() {
     if (sourceNode) {
         // Stop the current audio if it's playing
         if (sourceNode.state === "playing") {
@@ -128,7 +128,7 @@ playButtonEl130.addEventListener('click', function startPlayer() {
     }
 });
 
-stopButtonEl130.addEventListener('click', function stopPlayer() {
+stopButtonEl130.addEventListener('click', function stopPlayer130() {
     if (sourceNode) {
         sourceNode.stop();
     }
