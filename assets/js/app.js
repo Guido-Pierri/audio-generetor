@@ -33,13 +33,15 @@ fetch('http://localhost:8080/brownnoise')
 // Add event listeners to play and stop buttons
 const playButton1000 = document.getElementById('playButn1000hz')
 
-const stopButtonEl1000 = document.getElementById('stopButn1000hz')
+const stopButton1000 = document.getElementById('stopButn1000hz')
+
 const playButtonEl500 = document.getElementById('playButn500hz')
 const stopButtonEl500 = document.getElementById('stopButn500hz')
 const playButtonEl256 = document.getElementById('playButn256hz')
 const stopButtonEl256 = document.getElementById('stopButn256hz')
 const playButtonEl130 = document.getElementById('playButn130Hz')
 const stopButtonEl130 = document.getElementById('stopButn130Hz')
+
 //eventlistener for the play button att 100hz
 playButton1000.addEventListener('click', function startPlayer1000() {
   audioContext.resume().then(() => {
@@ -67,12 +69,17 @@ playButton1000.addEventListener('click', function startPlayer1000() {
     }
   })
 })
-
-stopButtonEl1000.addEventListener('click', function stopPlayer1000() {
+stopButton1000.addEventListener('click', function () {
   if (sourceNode) {
     sourceNode.stop()
   }
+  // Rest of the audio stop code for 1000Hz
 })
+// stopButtonEl1000.addEventListener('click', function stopPlayer1000() {
+//   if (sourceNode) {
+//     sourceNode.stop()
+//   }
+// })
 
 playButtonEl500.addEventListener('click', function startPlayer500() {
   if (sourceNode) {
