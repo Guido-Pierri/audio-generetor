@@ -1,140 +1,147 @@
-"use strict";
+"use strict"
 // Create an AudioContext object
-const audioContext = new AudioContext();
+const audioContext = new AudioContext()
 
-let sourceNode;
-let audioBuffer;
-let filterNode;
+let sourceNode
+let audioBuffer
+let filterNode
 
 // Fetch the audio file and decode it into an AudioBuffer
-fetch('http://localhost:8080/brownnoise')
-    .then(response => response.arrayBuffer())
-    .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-    .then(decodedBuffer => {
-        audioBuffer = decodedBuffer;
-        // Create an initial AudioBufferSourceNode
-        sourceNode = audioContext.createBufferSource();
-        sourceNode.buffer = audioBuffer;
-        sourceNode.loop = true; // Set the loop property to true
+fetch("http://localhost:8080/brownnoise")
+  .then((response) => response.arrayBuffer())
+  .then((arrayBuffer) => audioContext.decodeAudioData(arrayBuffer))
+  .then((decodedBuffer) => {
+    audioBuffer = decodedBuffer
+    // Create an initial AudioBufferSourceNode
+    sourceNode = audioContext.createBufferSource()
+    sourceNode.buffer = audioBuffer
+    sourceNode.loop = true // Set the loop property to true
 
-        // Create a BiquadFilterNode for the low pass filter
-        filterNode = audioContext.createBiquadFilter();
-        filterNode.type = "lowpass";
-        filterNode.frequency.value = 1000;
-        filterNode.Q.value = 1;
+    // Create a BiquadFilterNode for the low pass filter
+    filterNode = audioContext.createBiquadFilter()
+    filterNode.type = "lowpass"
+    // filterNode.frequency.value = 1000;
+    filterNode.Q.value = 1
 
-        // Connect the sourceNode to the filterNode and then to the audioContext destination
-        sourceNode.connect(filterNode);
-        filterNode.connect(audioContext.destination);
-    })
-    .catch(error => console.error(error));
+    // Connect the sourceNode to the filterNode and then to the audioContext destination
+    sourceNode.connect(filterNode)
+    filterNode.connect(audioContext.destination)
+    console.log(sourceNode.context)
+    console.log(filterNode.context)
+  })
+  .catch((error) => console.error(error))
 
 // Add event listeners to play and stop buttons
-const playButtonEl1000 = document.getElementById("playButn1000hz");
-const stopButtonEl1000 = document.getElementById("stopButn1000hz");
-const playButtonEl500 = document.getElementById("playButn500hz");
-const stopButtonEl500 = document.getElementById("stopButn500hz");
-const playButtonEl256 = document.getElementById("playButn256hz");
-const stopButtonEl256 = document.getElementById("stopButn256hz");
-const playButtonEl130 = document.getElementById("playButn130Hz");
-const stopButtonEl130 = document.getElementById("stopButn130Hz");
+const playButtonEl1000 = document.getElementById("playButn1000hz")
+const stopButtonEl1000 = document.getElementById("stopButn1000hz")
+const playButtonEl500 = document.getElementById("playButn500hz")
+const stopButtonEl500 = document.getElementById("stopButn500hz")
+const playButtonEl256 = document.getElementById("playButn256hz")
+const stopButtonEl256 = document.getElementById("stopButn256hz")
+const playButtonEl130 = document.getElementById("playButn130Hz")
+const stopButtonEl130 = document.getElementById("stopButn130Hz")
 //eventlistener for the play button att 100hz
-playButtonEl1000.addEventListener('click', function startPlayer1000() {
-    if (sourceNode) {
-        // Stop the current audio if it's playing
-        if (sourceNode.state === "playing") {
-            sourceNode.stop();
-        }
+playButtonEl1000.addEventListener("click", function startPlayer1000() {
+  console.log(sourceNode.context)
+  console.log(sourceNode.state)
+  if (sourceNode) {
+    // Stop the current audio if it's playing
+    console.log(sourceNode.context)
 
-        // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
-        sourceNode = audioContext.createBufferSource();
-        sourceNode.buffer = audioBuffer;
-        sourceNode.loop = true; // Set the loop property to true
-        filterNode.frequency.value = 1000;
-        sourceNode.connect(filterNode);
-        filterNode.connect(audioContext.destination);
-        sourceNode.start(0);
+    console.log(sourceNode.state)
+
+    if (sourceNode.state === "playing") {
+      sourceNode.stop()
     }
-});
 
-stopButtonEl1000.addEventListener('click', function stopPlayer1000() {
-    if (sourceNode) {
-        sourceNode.stop();
+    // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
+    sourceNode = audioContext.createBufferSource()
+    sourceNode.buffer = audioBuffer
+    sourceNode.loop = true // Set the loop property to true
+    filterNode.frequency.value = 1000
+    sourceNode.connect(filterNode)
+    filterNode.connect(audioContext.destination)
+    sourceNode.start(0)
+    sourceNode.state = "playing"
+  }
+})
+
+stopButtonEl1000.addEventListener("click", function stopPlayer1000() {
+  if (sourceNode) {
+    sourceNode.stop()
+  }
+})
+
+playButtonEl500.addEventListener("click", function startPlayer500() {
+  if (sourceNode) {
+    // Stop the current audio if it's playing
+    if (sourceNode.state === "playing") {
+      sourceNode.stop()
     }
-});
 
-playButtonEl500.addEventListener('click', function startPlayer500() {
-    if (sourceNode) {
-        // Stop the current audio if it's playing
-        if (sourceNode.state === "playing") {
-            sourceNode.stop();
-        }
+    // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
+    sourceNode = audioContext.createBufferSource()
+    sourceNode.buffer = audioBuffer
+    sourceNode.loop = true // Set the loop property to true
+    sourceNode.connect(filterNode)
+    filterNode.frequency.value = 500
+    filterNode.connect(audioContext.destination)
+    sourceNode.start(0)
+  }
+})
 
-        // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
-        sourceNode = audioContext.createBufferSource();
-        sourceNode.buffer = audioBuffer;
-        sourceNode.loop = true; // Set the loop property to true
-        sourceNode.connect(filterNode);
-        filterNode.frequency.value = 500;
-        filterNode.connect(audioContext.destination);
-        sourceNode.start(0);
+stopButtonEl500.addEventListener("click", function stopPlayer500() {
+  if (sourceNode) {
+    sourceNode.stop()
+  }
+})
+
+playButtonEl256.addEventListener("click", function startPlayer256() {
+  if (sourceNode) {
+    // Stop the current audio if it's playing
+    if (sourceNode.state === "playing") {
+      sourceNode.stop()
     }
-});
 
-stopButtonEl500.addEventListener('click', function stopPlayer500() {
-    if (sourceNode) {
-        sourceNode.stop();
+    // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
+    sourceNode = audioContext.createBufferSource()
+    sourceNode.buffer = audioBuffer
+    sourceNode.loop = true // Set the loop property to true
+    sourceNode.connect(filterNode)
+    filterNode.frequency.value = 256
+    filterNode.connect(audioContext.destination)
+    sourceNode.start(0)
+  }
+})
+
+stopButtonEl256.addEventListener("click", function stopPlayer256() {
+  if (sourceNode) {
+    sourceNode.stop()
+  }
+})
+playButtonEl130.addEventListener("click", function startPlayer130() {
+  if (sourceNode) {
+    // Stop the current audio if it's playing
+    if (sourceNode.state === "playing") {
+      sourceNode.stop()
     }
-});
 
-playButtonEl256.addEventListener('click', function startPlayer256() {
-    if (sourceNode) {
-        // Stop the current audio if it's playing
-        if (sourceNode.state === "playing") {
-            sourceNode.stop();
-        }
+    // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
+    sourceNode = audioContext.createBufferSource()
+    sourceNode.buffer = audioBuffer
+    sourceNode.loop = true // Set the loop property to true
+    sourceNode.connect(filterNode)
+    filterNode.frequency.value = 130
+    filterNode.connect(audioContext.destination)
+    sourceNode.start(0)
+  }
+})
 
-        // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
-        sourceNode = audioContext.createBufferSource();
-        sourceNode.buffer = audioBuffer;
-        sourceNode.loop = true; // Set the loop property to true
-        sourceNode.connect(filterNode);
-        filterNode.frequency.value = 256;
-        filterNode.connect(audioContext.destination);
-        sourceNode.start(0);
-    }
-});
-
-stopButtonEl256.addEventListener('click', function stopPlayer256() {
-    if (sourceNode) {
-        sourceNode.stop();
-    }
-});
-playButtonEl130.addEventListener('click', function startPlayer130() {
-    if (sourceNode) {
-        // Stop the current audio if it's playing
-        if (sourceNode.state === "playing") {
-            sourceNode.stop();
-        }
-
-        // Create a new AudioBufferSourceNode and connect it to the filterNode and audioContext destination
-        sourceNode = audioContext.createBufferSource();
-        sourceNode.buffer = audioBuffer;
-        sourceNode.loop = true; // Set the loop property to true
-        sourceNode.connect(filterNode);
-        filterNode.frequency.value = 130;
-        filterNode.connect(audioContext.destination);
-        sourceNode.start(0);
-    }
-});
-
-stopButtonEl130.addEventListener('click', function stopPlayer130() {
-    if (sourceNode) {
-        sourceNode.stop();
-    }
-});
-
-
+stopButtonEl130.addEventListener("click", function stopPlayer130() {
+  if (sourceNode) {
+    sourceNode.stop()
+  }
+})
 
 // fetch('http://localhost:8080/whitenoise')
 //     .then(response => response.blob())
@@ -144,13 +151,13 @@ stopButtonEl130.addEventListener('click', function stopPlayer130() {
 //         //     /* the audio is now playable; play it if permissions allow */
 //         const playButtonEl = document.getElementById("playButn");
 //         const stopButnEl = document.getElementById("stopButn");
-        
+
 //         playButtonEl.addEventListener('click',function startPlayer() {
 //             audio.play();
 //         })
 //             stopButnEl.addEventListener('click',function stopPlayer(){
 //                 audio.pause();
-                
+
 //             })
 //         // });
 //     })
